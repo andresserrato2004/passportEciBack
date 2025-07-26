@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: pasaporte-api
+    environment:
+      DATABASE_URL: postgresql://admin:admin123@host.docker.internal:5432/pasaporte
+      JWT_SECRET: supersecreto123
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    command: sh -c "npx prisma migrate deploy && npm run dev"

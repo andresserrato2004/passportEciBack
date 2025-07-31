@@ -1,10 +1,16 @@
 const prisma = require('../models/db');
 
 exports.createPlace = async (req, res) => {
-  const { code, name, description } = req.body;
+  const { code, name, description, websiteUrl, imageUrl} = req.body;
   try {
     const place = await prisma.place.create({
-      data: { code, name, description }
+      data: { 
+        code,
+        name, 
+        description, 
+        websiteUrl: websiteUrl || null, 
+        imageUrl: imageUrl || null
+      }
     });
     res.status(201).json(place);
   } catch (err) {

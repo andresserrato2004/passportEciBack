@@ -22,6 +22,8 @@ model Place {
   code           String      @unique
   name           String
   description    String?
+  websiteUrl     String?
+  imageUrl       String?
   createdAt      DateTime    @default(now())
   userPlaces     UserPlace[]
 }

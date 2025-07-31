@@ -28,13 +28,24 @@ exports.registerVisit = async (req, res) => {
   }
 };
 
+
 exports.getVisitedPlaces = async (req, res) => {
   const userId = req.user.userId;
   try {
     const visits = await prisma.userPlace.findMany({
       where: { userId },
       include: {
-        place: true
+        place: {
+          select: {
+            id: true,
+            code: true,
+            name: true,
+            description: true,
+            websiteUrl: true,
+            imageUrl: true,
+            createdAt: true
+          }
+        }
       }
     });
 
@@ -46,12 +57,20 @@ exports.getVisitedPlaces = async (req, res) => {
 };
 
 
-// Nuevo método para obtener lugares disponibles con descripción "yes"
 exports.getAvailablePlaces = async (req, res) => {
   try {
     const places = await prisma.place.findMany({
       where: {
         description: "yes"
+      },
+      select: {
+        id: true,
+        code: true,
+        name: true,
+        description: true,
+        websiteUrl: true,
+        imageUrl: true,
+        createdAt: true
       },
       orderBy: {
         name: 'asc'
@@ -64,7 +83,8 @@ exports.getAvailablePlaces = async (req, res) => {
   }
 };
 
-// Método que combina lugares disponibles con el estado de visita del usuario
+// ...existing code...
+
 exports.getPlacesWithVisitStatus = async (req, res) => {
   const userId = req.user.userId;
   
@@ -73,6 +93,15 @@ exports.getPlacesWithVisitStatus = async (req, res) => {
     const availablePlaces = await prisma.place.findMany({
       where: {
         description: "yes"
+      },
+      select: {
+        id: true,
+        code: true,
+        name: true,
+        description: true,
+        websiteUrl: true,
+        imageUrl: true,
+        createdAt: true
       },
       orderBy: {
         name: 'asc'

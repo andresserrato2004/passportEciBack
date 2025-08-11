@@ -14,9 +14,9 @@ app.use(cors()); // Esto permite todos los orígenes por defecto
 app.use(express.json());
 
 // Rutas
-app.use('/auth', authRoutes);          // /auth/register, /auth/login
-app.use('/places', placeRoutes);       // /places (POST para registrar nuevos lugares)
-app.use('/passport', visitRoutes);     // /passport (GET), /passport/visit (POST)
+app.use('/api/auth', authRoutes);          // /api/auth/register, /api/auth/login
+app.use('/api/places', placeRoutes);       // /api/places (POST para registrar nuevos lugares)
+app.use('/api/passport', visitRoutes);     // /api/passport (GET), /api/passport/visit (POST)
 
 // Ruta raíz (opcional)
 app.get('/', (req, res) => {
